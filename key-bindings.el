@@ -1,3 +1,9 @@
+(global-unset-key (kbd "H-e"))
+(global-set-key (kbd "H-e") 'hippie-expand)
+
+(require 'dired)
+(global-set-key (kbd "M-z") 'dired-jump)
+
 ;; I don't need to kill emacs that easily
 ;; the mnemonic is C-x REALLY QUIT
 (global-set-key (kbd "C-x r q") 'save-buffers-kill-terminal)
