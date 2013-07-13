@@ -56,32 +56,41 @@
 (require 'setup-package)
 
 ;; Install extensions if they're missing
-(defun init--install-packages ()
-  (packages-install
-   '(magit
-     paredit
-     move-text
-     gist
-     htmlize
-     visual-regexp
-     smartparens
-     ido-vertical-mode
-     simple-httpd
-     nodejs-repl
-     restclient
-     highlight-escape-sequences
-     elisp-slime-nav
-     git-commit-mode
-     gitconfig-mode
-     gitignore-mode
-     clojure-mode
-     nrepl)))
+(progn
+  (defun init--install-packages ()
+    (packages-install
+     '(magit
+       golden-ratio
 
-(condition-case nil
-    (init--install-packages)
-  (error
-   (package-refresh-contents)
-   (init--install-packages)))
+       paredit
+       move-text
+       gist
+       htmlize
+       visual-regexp
+       smartparens
+       ido-vertical-mode
+       simple-httpd
+       nodejs-repl
+       restclient
+       coffee-mode
+       highlight-escape-sequences
+       elisp-slime-nav
+       git-commit-mode
+       gitconfig-mode
+       gitignore-mode
+       clojure-mode
+       nrepl)))
+  (condition-case nil
+      (init--install-packages)
+    (error
+     (package-refresh-contents)
+     (init--install-packages)))
+  )
+
+
+
+
+
 
 ;; Lets start with a smattering of sanity
 (require 'sane-defaults)

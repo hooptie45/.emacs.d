@@ -328,9 +328,7 @@
 (global-set-key (kbd "C-x C-o in") (ffip-create-pattern-file-finder "*.ini"))
 (global-set-key (kbd "C-x C-o gr") (ffip-create-pattern-file-finder "*.groovy"))
 
-;; View occurrence in occur mode
-(define-key occur-mode-map (kbd "v") 'occur-mode-display-occurrence)
-(define-key occur-mode-map (kbd "n") 'next-line)
-(define-key occur-mode-map (kbd "p") 'previous-line)
+(global-set-key (kbd "M-z") 'dired-jump)
+
 
 (provide 'key-bindings)
