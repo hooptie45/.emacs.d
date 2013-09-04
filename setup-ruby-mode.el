@@ -4,9 +4,9 @@
 (defun ruby--jump-to-test ()
   (find-file
    (replace-regexp-in-string
-    "/lib/" "/test/"
+    "/lib/" "/spec/"
     (replace-regexp-in-string
-     "/\\([^/]+\\).rb$" "/test_\\1.rb"
+     "/\\([^/]+\\).rb$" "/\\1_spec.rb"
      (buffer-file-name)))))
 
 (defun ruby--jump-to-lib ()
@@ -14,8 +14,22 @@
    (replace-regexp-in-string
     "/test/" "/lib/"
     (replace-regexp-in-string
-     "/test_\\([^/]+\\).rb$" "/\\1.rb"
+     "/\\([^/]+\\).rb$" "/\\1.rb"
      (buffer-file-name)))))
+
+
+(let*
+    ((spec (replace-regexp-in-string "/\\([^/]+\\)_spec.rb$"
+                                     "/\\1.rb"
+                                     (buffer-file-name)))
+
+     (lib (replace-regexp-in-string
+           "/spec/" "/"
+           spec)))
+  lib)
+
+
+
 
 (defun ruby-jump-to-other ()
   (interactive)

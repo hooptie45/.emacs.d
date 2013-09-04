@@ -1,9 +1,6 @@
 (global-unset-key (kbd "H-e"))
 (global-set-key (kbd "H-e") 'hippie-expand)
 
-(require 'dired)
-(global-set-key (kbd "M-z") 'dired-jump)
-
 ;; I don't need to kill emacs that easily
 ;; the mnemonic is C-x REALLY QUIT
 (global-set-key (kbd "C-x r q") 'save-buffers-kill-terminal)
@@ -328,7 +325,20 @@
 (global-set-key (kbd "C-x C-o in") (ffip-create-pattern-file-finder "*.ini"))
 (global-set-key (kbd "C-x C-o gr") (ffip-create-pattern-file-finder "*.groovy"))
 
+(global-set-key (kbd "H-s") 'fixup-whitespace)
+
+(require 'dired)
 (global-set-key (kbd "M-z") 'dired-jump)
+
+(global-set-key (kbd "C-x C-g") (lambda () (interactive) (magit-status default-directory)))
+(global-set-key (kbd "C-x g") (lambda () (interactive) (magit-status default-directory)))
+
+
+(require 'smart-forward)
+(global-set-key (kbd "M-<up>") 'smart-up)
+(global-set-key (kbd "M-<down>") 'smart-down)
+(global-set-key (kbd "M-<left>") 'smart-backward)
+(global-set-key (kbd "M-<right>") 'smart-forward)
 
 
 (provide 'key-bindings)

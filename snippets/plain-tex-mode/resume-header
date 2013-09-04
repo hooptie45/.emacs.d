@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: resume-header
+# key: rh
+# --
+ {\bf ${1:position} ${2:place}, ${3:City}, ${4:FL} \hfill ${5:from}-${6:to}

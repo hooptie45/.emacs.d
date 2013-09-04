@@ -36,11 +36,29 @@
   (when (file-directory-p project)
     (add-to-list 'load-path project)))
 
+
+(require 'package)
+
+(add-to-list 'package-archives
+             '("marmalade" . "http://marmalade-repo.org/packages/"))
+(package-initialize)
+(when (not package-archive-contents)
+  (package-refresh-contents))
+(defvar my-packages '(clojure-mode
+                      nrepl))
+
+(dolist (p my-packages)
+  (when (not (package-installed-p p))
+    (package-install p)))
+
+(add-hook 'nrepl-interaction-mode-hook 'my-nrepl-mode-setup)
+(defun my-nrepl-mode-setup ()
+  (require 'nrepl-ritz))
 ;; Write backup files to own directory
 (setq backup-directory-alist
       `(("." . ,(expand-file-name
                  (concat user-emacs-directory "backups")))))
-
+(require 'cl)
 ;; Make backups of files, even when they're in version control
 (setq vc-make-backup-files t)
 
@@ -61,7 +79,6 @@
     (packages-install
      '(magit
        golden-ratio
-
        paredit
        move-text
        gist
@@ -73,6 +90,7 @@
        nodejs-repl
        restclient
        coffee-mode
+       color-theme-sanityinc-solarized
        highlight-escape-sequences
        elisp-slime-nav
        git-commit-mode
@@ -84,13 +102,10 @@
       (init--install-packages)
     (error
      (package-refresh-contents)
-     (init--install-packages)))
-  )
+     (init--install-packages))))
 
-
-
-
-
+(add-to-list 'load-path (expand-file-name "predictive" site-lisp-dir))
+(require 'predictive)
 
 ;; Lets start with a smattering of sanity
 (require 'sane-defaults)
@@ -107,6 +122,7 @@
 (eval-after-load 'magit '(require 'setup-magit))
 (eval-after-load 'grep '(require 'setup-rgrep))
 (eval-after-load 'shell '(require 'setup-shell))
+
 (require 'setup-hippie)
 (require 'setup-yasnippet)
 (require 'setup-perspective)
@@ -145,8 +161,6 @@
 
 ;; Visual regexp
 (require 'visual-regexp)
-(define-key global-map (kbd "M-&") 'vr/query-replace)
-(define-key global-map (kbd "M-/") 'vr/replace)
 
 ;; Functions (load all files in defuns-dir)
 (setq defuns-dir (expand-file-name "defuns" user-emacs-directory))
@@ -190,6 +204,8 @@
 (autoload 'elisp-slime-nav-mode "elisp-slime-nav")
 (add-hook 'emacs-lisp-mode-hook (lambda () (elisp-slime-nav-mode t) (eldoc-mode 1)))
 
+
+
 ;; Email, baby
 (require 'setup-mu4e)
 
@@ -202,7 +218,16 @@
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
-
+(require 's)
 ;; Conclude init by setting up specifics for the current user
+
 (when (file-exists-p user-settings-dir)
   (mapc 'load (directory-files user-settings-dir nil "^[^#].*el$")))
+
+
+(setq url-proxy-services
+      '(("http"     . "")
+        ("ftp"      . "")))
+
+
+
