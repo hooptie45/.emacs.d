@@ -1,3 +1,12 @@
+(require 'dired)
+(global-set-key (kbd "M-z") 'dired-jump)
+
+(require 'simple)
+(global-set-key (kbd "H-s") 'fixup-whitespace)
+
+(require 'magit)
+(global-set-key (kbd "C-x g") 'magit-status)
+
 (global-unset-key (kbd "H-e"))
 (global-set-key (kbd "H-e") 'hippie-expand)
 
@@ -191,7 +200,6 @@
 (global-set-key (kbd "M-<right>") 'smart-forward)
 
 ;; Webjump let's you quickly search google, wikipedia, emacs wiki
-(global-set-key (kbd "C-x g") 'webjump)
 (global-set-key (kbd "C-x M-g") 'browse-url-at-point)
 
 ;; Completion at point
